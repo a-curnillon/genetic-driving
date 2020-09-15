@@ -5,7 +5,8 @@ let road;
 let isPlaying;
 
 function setup() {
-  createCanvas(450, 450);
+  canvas = createCanvas(450, 450);
+  canvas.parent('skeych-holder');
   setGame(2);
 }
 
