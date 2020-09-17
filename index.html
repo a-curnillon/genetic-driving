@@ -26,6 +26,20 @@
     <div id="info"></div>
   </div>
   <div id="skeych-holder"></div>
+
+  <script>
+    var request = new XMLHttpRequest();
+    var response;
+    request.onreadystatechange = function() {
+      if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+          response = JSON.parse(this.responseText);
+      }
+    };
+    request.open("GET", "https://api.github.com/repos/a-curnillon/genetic-driving/branches/master");
+    request.send();
+    console.log(response);
+  </script>
+
 </body>
 
 </html>
