@@ -31,6 +31,7 @@ class LatestCommitComponent extends React.Component {
   render() {
     return (
       <div>
+      INFO
         <div>{this.state.author}</div>
         <div>{this.state.date}</div>
       </div>
