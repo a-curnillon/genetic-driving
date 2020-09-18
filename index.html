@@ -2,6 +2,9 @@
 <html>
 
 <head>
+
+  <title>Genetic Driving</title>
+
   <script src="https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/p5.js"></script>
   <script src="sketch.js"></script>
   <script src="boundary.js"></script>
@@ -16,11 +19,27 @@
 </head>
 
 <body>
-  <h1>
-    Project Genetic Driving
-  </h1>
-  <b>Author : </b>a-curnillons
+  <div>
+    <h1>
+      Project Genetic Driving
+    </h1>
+    <div id="info"></div>
+  </div>
   <div id="skeych-holder"></div>
+
+  <script>
+    var request = new XMLHttpRequest();
+    var response;
+    request.onreadystatechange = function() {
+      if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+          response = JSON.parse(this.responseText);
+      }
+    };
+    request.open("GET", "https://api.github.com/repos/a-curnillon/genetic-driving/branches/master");
+    request.send();
+    console.log(response);
+  </script>
+
 </body>
 
 </html>
