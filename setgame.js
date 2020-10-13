@@ -1,34 +1,25 @@
-function setGame(carsNumber) {
+function setGame() {
+  playground = new GameArea(0, 75, width, 300);
 
-  road = new GameArea(5, 5, width-10, height/3-10);
-  for (let i = 0; i < carsNumber; i++) {
-    cars.push(new Car(road.width/15+i*45));
-  }
-  for (let i = 0; i < 2; i++) {
-    let a = random(1);
-    if (a > 0.5) {
-      obstacles.push(new Obstacle(i*road.width/2+40, height/6-60, 100, 40));
+  let obstacleNumber = 4;
+  let obstacleWidth = 40;
+  let obstacleHeight = 40;
+
+  for (let i  = 0; i < obstacleNumber; i++) {
+    let r = random(1);
+    if (r < 1/3) {
+      obstacles.push(new Obstacle(i*playground.w/5, playground.y + playground.h/6 - obstacleHeight/2, obstacleWidth, obstacleHeight));
+    } else if (r < 2/3) {
+      obstacles.push(new Obstacle(i*playground.w/5, playground.y + playground.h/2 - obstacleHeight/2, obstacleWidth, obstacleHeight));
     } else {
-      obstacles.push(new Obstacle(i*road.width/2+40, height/6+20, 100, 40));
+      obstacles.push(new Obstacle(i*playground.w/5, playground.y + 5*playground.h/6 - obstacleHeight/2, obstacleWidth, obstacleHeight));
     }
   }
-  isPlaying = true;
 
-  let url = "https://api.github.com/repos/a-curnillon/genetic-driving/branches/master";
-  let info;
+  let carNumber = 1;
+  let carWidth = 40;
+  let carHeight = 20;
 
-  httpDo(url, "GET", "json", function(res) {
-    info = res;
-  });
-
-  while(!info){
-    ;
-  }
-
-  let author = createDiv('Author : ' + info.commit.commit.author.name);
-  author.parent('info');
-  let date = createDiv('Date : ' + info.commit.commit.author.date);
-  date.parent('info');
-
-
+  cars.push(new Car(0, 0, carWidth, carHeight));
+  //console.log("game set.")
 }

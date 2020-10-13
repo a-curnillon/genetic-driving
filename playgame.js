@@ -1,20 +1,23 @@
-function playGame(cars) {
-  if (isPlaying) {
-    isPlaying = false;
-    for (let obstacle of obstacles) {
-      obstacle.move(5, width-10);
-      obstacle.show();
-      walls = concat(walls, obstacle.walls);
+function playGame() {
+
+  let walls = [];
+
+  playground.show();
+  walls = concat(walls, playground.walls);
+
+  for(let obstacle of obstacles) {
+    obstacle.show();
+    if(obstacleMoving && play) {
+      obstacle.move(playground.x, playground.x + playground.w);
     }
-    road.show();
-    walls = concat(walls, road.walls);
-    for (let car of cars) {
-      if (car.alive == true) {
-        car.show();
-        car.drive(obstacles, walls, road);
-        isPlaying = true;
-      }
-    }
-    walls = [];
+    walls = concat(walls, obstacle.walls);
   }
+
+  for (let car of cars) {
+    car.show(0, 153, 153);
+    car.move(mouseX, mouseY);
+    car.collision(playground, obstacles);
+    car.cast(walls);
+  }
+
 }
