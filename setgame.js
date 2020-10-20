@@ -20,6 +20,6 @@ function setGame() {
   let carWidth = 40;
   let carHeight = 20;
 
-  cars.push(new Car(0, 0, carWidth, carHeight));
+  cars.push(new Car(width/6 - this.w/2, height/2, carWidth, carHeight));
   //console.log("game set.")
 }

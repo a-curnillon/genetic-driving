@@ -1,8 +1,7 @@
 let info;
 
 let play = true;
-let carAutomaticDriving = true;
-let obstacleMoving = true;
+let debugMode = false;
 
 /*let colorTab = [
   color(255, 0, 0),
@@ -16,6 +15,8 @@ let obstacleMoving = true;
   color(255, 255, 102),
   color(0, 0, 0)
 ];*/
+
+
 
 let playground;
 

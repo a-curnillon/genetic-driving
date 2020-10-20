@@ -7,7 +7,7 @@ function playGame() {
 
   for(let obstacle of obstacles) {
     obstacle.show();
-    if(obstacleMoving && play) {
+    if(!debugMode && play) {
       obstacle.move(playground.x, playground.x + playground.w);
     }
     walls = concat(walls, obstacle.walls);
@@ -15,9 +15,20 @@ function playGame() {
 
   for (let car of cars) {
     car.show(0, 153, 153);
-    car.move(mouseX, mouseY);
-    car.collision(playground, obstacles);
-    car.cast(walls);
+    if(play) {
+      car.drive(playground, obstacles, walls);
+    }
+  }
+
+  if(!play) {
+    push();
+      fill(0, 200);
+      rect(0, 0, width, height);
+      textSize(45);
+      fill(255);
+      textAlign(CENTER, CENTER);
+      text('PAUSE', width/2, height/2);
+    pop();
   }
 
 }

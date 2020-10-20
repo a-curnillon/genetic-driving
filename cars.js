@@ -7,6 +7,8 @@ class Car {
     this.w = width;
     this.h = height;
 
+    let xStaticPosition = width/6;
+
     this.walls = [];
     this.walls.push(new Boundary(this.x, this.y+this.h, this.x+this.w, this.y+this.h));
     this.walls.push(new Boundary(this.x+this.w, this.y+this.h, this.x+this.w, this.y));
@@ -16,10 +18,12 @@ class Car {
     this.crashed = false;
 
     this.rays = [];
-    for(let a = 330; a < 420; a+= 20) {
+    for(let a = 300; a < 450; a+= 30) {
       this.rays.push(new Ray(createVector(this.x + this.w, this.y + this.w/2), radians(a)));
     }
-    this.points = [this.rays.length];
+
+    this.points = [];
+    this.dist = [];
 
     this.driver = new Neuron(this.rays.length);
     for(let i = 0; i < this.rays.length; i++) {
@@ -44,8 +48,22 @@ class Car {
       }
     }
 
-    for (let ray of this.rays) {
-      ray.show();
+    if(debugMode || !debugMode) {
+
+      for (let ray of this.rays) {
+        ray.show();
+      }
+
+      for (let point of this.points) {
+        push();
+          stroke(255);
+          line(this.x + this.w, this.y + this.h/2, point.x, point.y);
+          noStroke();
+          fill(255, 0, 0);
+          ellipse(point.x, point.y, 5, 5)
+          pop();
+      }
+
     }
 
   }
@@ -96,14 +114,17 @@ class Car {
   }
 
   cast(walls) {
+
+    this.points = [];
     this.dist = [];
+
     for (let ray of this.rays) {
       let closest = null;
       let record = Infinity;
       for (let wall of walls) {
         const pt = ray.cast(wall);
         if (pt) {
-          const d = p5.Vector.dist(createVector(this.x, this.y), pt);
+          const d = p5.Vector.dist(createVector(this.x + this.w, this.y + this.h/2), pt);
           if (d < record) {
             record = d;
             closest = pt;
@@ -111,14 +132,33 @@ class Car {
         }
       }
       if (closest) {
-        stroke(255);
-        line(this.x + this.w, this.y + this.h/2, closest.x, closest.y);
-        noStroke();
-        fill(255, 0, 0);
-        ellipse(closest.x, closest.y, 5, 5);
+        this.points.push(closest);
         this.dist.push(dist(this.x + this.w, this.y + this.h/2, closest.x, closest.y));
+      } else {
+        this.dist.push(Infinity);
       }
     }
+
+  }
+
+  drive(way, boxes, walls) {
+
+    this.collision(way, boxes);
+    this.cast(walls);
+    if (play) {
+      console.log(this.dist);
+      if(debugMode) {
+        this.move(mouseX, mouseY);
+      } else {
+        let diry = map(this.driver.think(this.dist), 0, 1, 0, height);
+        if (diry >= this.y) {
+          this.move(width/6 - this.w/2, this.y+1);
+        } else {
+          this.move(width/6 - this.w/2, this.y-1);
+        }
+      }
+    }
+
   }
 
 }

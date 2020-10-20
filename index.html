@@ -37,19 +37,14 @@
       </tr>
       <tr>
         <td class="centered mid-colored paramMenu" colspan="4"><b>Play</b> / Pause</td>
-        <td class="centered mid-colored paramMenu" colspan="4">Cars : auto / <b>manual</b></td>
-        <td class="centered mid-colored paramMenu" colspan="4">Obstacle : moving / <b>statics</b></td>
+        <td class="centered mid-colored paramMenu" colspan="8"><b>Normal</b> / debug</td>
       </tr>
       <tr>
         <td class="centered paramMenu" colspan="4">
           <input type="checkbox" checked="true" onclick="clickPlayPause()"></input>
         </td>
-        <td class="centered paramMenu" colspan="4">
-          <input type="checkbox" onclick="clickAutomaticDriving()"></input>
-        </td>
-        <td class="centered paramMenu" colspan="4">
-          <input type="checkbox" onclick="clickObstacleMoving()"></input>
-        </td>
+        <td class="centered paramMenu" colspan="8">
+          <input type="checkbox" checked="true" onclick="clickNormalDebug()"></input>
       </tr>
       <tr>
         <td class="centered mid-colored paramMenu" colspan="12">Mutation rate</td>
@@ -101,12 +96,8 @@
       play = !play;
     }
 
-    function clickAutomaticDriving() {
-      carAutomaticDriving = !carAutomaticDriving;
-    }
-
-    function clickObstacleMoving() {
-      obstacleMoving = !obstacleMoving;
+    function clickNormalDebug() {
+      debugMode = !debugMode;
     }
 
     function slideChange() {
