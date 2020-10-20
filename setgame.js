@@ -16,10 +16,14 @@ function setGame() {
     }
   }
 
-  let carNumber = 1;
+  let carNumber = 10;
   let carWidth = 40;
   let carHeight = 20;
 
-  cars.push(new Car(width/6 - this.w/2, height/2, carWidth, carHeight));
+
+  for (let i = 0; i < carNumber; i++) {
+    cars.push(new Car(width/6 - this.w/2, height/2, carWidth, carHeight, colorTabR[i], colorTabG[i], colorTabB[i]));
+  }
+  //cars.push(new Car(width/6 - this.w/2, height/2, carWidth, carHeight));
   //console.log("game set.")
 }

@@ -14,9 +14,11 @@ function playGame() {
   }
 
   for (let car of cars) {
-    car.show(0, 153, 153);
-    if(play) {
-      car.drive(playground, obstacles, walls);
+    if(!car.crashed) {
+      car.show(0, 153, 153);
+      if(play) {
+        car.drive(playground, obstacles, walls);
+      }
     }
   }
 

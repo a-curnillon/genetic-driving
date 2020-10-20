@@ -1,13 +1,15 @@
 class Car {
 
-  constructor(xpos, ypos, width, height) {
+  constructor(xpos, ypos, width, height, colorR, colorG, colorB) {
 
     this.x = xpos;
     this.y = ypos;
     this.w = width;
     this.h = height;
 
-    let xStaticPosition = width/6;
+    this.r = colorR;
+    this.g = colorG;
+    this.b = colorB;
 
     this.walls = [];
     this.walls.push(new Boundary(this.x, this.y+this.h, this.x+this.w, this.y+this.h));
@@ -32,23 +34,23 @@ class Car {
 
   }
 
-  show(r, g, b) {
+  show() {
 
     push();
       noStroke();
-      fill(r, g, b);
+      fill(this.r, this.g, this.b);
       rect(this.x, this.y, this.w, this.h);
     pop();
 
     for (let wall of this.walls) {
       if(!this.crashed) {
-        wall.show(0.7*r, 0.7*g, 0.7*b);
+        wall.show(0.7*this.r, 0.7*this.g, 0.7*this.b);
       } else {
         wall.show(255, 0, 0);
       }
     }
 
-    if(debugMode || !debugMode) {
+    if(debugMode) {
 
       for (let ray of this.rays) {
         ray.show();
