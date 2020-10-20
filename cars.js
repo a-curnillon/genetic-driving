@@ -18,6 +18,7 @@ class Car {
     this.walls.push(new Boundary(this.x, this.y, this.x, this.y+this.h));
 
     this.crashed = false;
+    this.crashTime;
 
     this.rays = [];
     for(let a = 300; a < 450; a+= 30) {
@@ -112,6 +113,9 @@ class Car {
     for(let box of boxes) {
       this.crashInto(box);
     }
+    if(this.crashed) {
+      this.crashTime = Date.now() - startTime;
+    }
 
   }
 
@@ -148,7 +152,7 @@ class Car {
     this.collision(way, boxes);
     this.cast(walls);
     if (play) {
-      console.log(this.dist);
+      //console.log(this.dist);
       if(debugMode) {
         this.move(mouseX, mouseY);
       } else {

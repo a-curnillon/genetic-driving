@@ -25,5 +25,9 @@ function setGame() {
     cars.push(new Car(width/6 - this.w/2, height/2, carWidth, carHeight, colorTabR[i], colorTabG[i], colorTabB[i]));
   }
   //cars.push(new Car(width/6 - this.w/2, height/2, carWidth, carHeight));
+
+  isStarted = true;
+  isPlaying = true;
+
   //console.log("game set.")
 }
