@@ -1,15 +1,33 @@
-function setGame(carsNumber) {
-  road = new GameArea(5, 5, width-10, height/3-10);
-  for (let i = 0; i < carsNumber; i++) {
-    cars.push(new Car(road.width/15+i*45));
-  }
-  for (let i = 0; i < 2; i++) {
-    let a = random(1);
-    if (a > 0.5) {
-      obstacles.push(new Obstacle(i*road.width/2+40, height/6-60, 100, 40));
+function setGame() {
+  playground = new GameArea(0, 75, width, 300);
+
+  let obstacleNumber = 4;
+  let obstacleWidth = 40;
+  let obstacleHeight = 40;
+
+  for (let i  = 0; i < obstacleNumber; i++) {
+    let r = random(1);
+    if (r < 1/3) {
+      obstacles.push(new Obstacle(i*playground.w/5, playground.y + playground.h/6 - obstacleHeight/2, obstacleWidth, obstacleHeight));
+    } else if (r < 2/3) {
+      obstacles.push(new Obstacle(i*playground.w/5, playground.y + playground.h/2 - obstacleHeight/2, obstacleWidth, obstacleHeight));
     } else {
-      obstacles.push(new Obstacle(i*road.width/2+40, height/6+20, 100, 40));
+      obstacles.push(new Obstacle(i*playground.w/5, playground.y + 5*playground.h/6 - obstacleHeight/2, obstacleWidth, obstacleHeight));
     }
   }
+
+  let carNumber = 10;
+  let carWidth = 40;
+  let carHeight = 20;
+
+
+  for (let i = 0; i < carNumber; i++) {
+    cars.push(new Car(width/6 - this.w/2, height/2, carWidth, carHeight, colorTabR[i], colorTabG[i], colorTabB[i]));
+  }
+  //cars.push(new Car(width/6 - this.w/2, height/2, carWidth, carHeight));
+
+  isStarted = true;
   isPlaying = true;
+
+  //console.log("game set.")
 }
