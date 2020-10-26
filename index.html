@@ -98,6 +98,20 @@
 
     function clickNormalDebug() {
       debugMode = !debugMode;
+      if(debugMode == false) {
+        for(let car of cars) {
+          car.move(width/6 - this.w/2, height/2);
+          car.crashed = false;
+        }
+        for(let obstacle of obstacles) {
+          let backdistance = obstacle.x + width/3;
+          while(obstacle.x < backdistance) {
+            obstacle.x++;
+          }
+        }
+        isPlaying = true;
+        startTime = Date.now()%120000;
+      }
     }
 
     function slideChange() {
@@ -117,7 +131,10 @@
   <script src="variables.js"></script>
   <script src="cars.js"></script>
   <script src="ray.js"></script>
-  <script src="neuron.js"></script>
+  <script src="neurons.js"></script>
+  <script src="startgame.js"></script>
+  <script src="functions.js"></script>
+  <script src="clocks.js"></script>
 
 </body>
 

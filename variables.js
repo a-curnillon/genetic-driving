@@ -1,5 +1,7 @@
 let info;
 
+let gameState = 0;
+
 let play = true;
 let debugMode = false;
 
@@ -17,3 +19,5 @@ let obstacles = [];
 let cars = [];
 
 let startTime;
+
+let meanTime = [];

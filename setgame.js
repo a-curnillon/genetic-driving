@@ -8,11 +8,11 @@ function setGame() {
   for (let i  = 0; i < obstacleNumber; i++) {
     let r = random(1);
     if (r < 1/3) {
-      obstacles.push(new Obstacle(i*playground.w/5, playground.y + playground.h/6 - obstacleHeight/2, obstacleWidth, obstacleHeight));
+      obstacles.push(new Obstacle(i*playground.w/5+2*playground.w/3, playground.y + playground.h/6 - obstacleHeight/2, obstacleWidth, obstacleHeight));
     } else if (r < 2/3) {
-      obstacles.push(new Obstacle(i*playground.w/5, playground.y + playground.h/2 - obstacleHeight/2, obstacleWidth, obstacleHeight));
+      obstacles.push(new Obstacle(i*playground.w/5+2*playground.w/3, playground.y + playground.h/2 - obstacleHeight/2, obstacleWidth, obstacleHeight));
     } else {
-      obstacles.push(new Obstacle(i*playground.w/5, playground.y + 5*playground.h/6 - obstacleHeight/2, obstacleWidth, obstacleHeight));
+      obstacles.push(new Obstacle(i*playground.w/5+2*playground.w/3, playground.y + 5*playground.h/6 - obstacleHeight/2, obstacleWidth, obstacleHeight));
     }
   }
 
@@ -29,5 +29,5 @@ function setGame() {
   isStarted = true;
   isPlaying = true;
 
-  //console.log("game set.")
+  //console.log("game set.");
 }

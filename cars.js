@@ -114,9 +114,8 @@ class Car {
       this.crashInto(box);
     }
     if(this.crashed) {
-      this.crashTime = Date.now() - startTime;
+      this.crashTime = deltaT();
     }
-
   }
 
   cast(walls) {
@@ -152,7 +151,6 @@ class Car {
     this.collision(way, boxes);
     this.cast(walls);
     if (play) {
-      //console.log(this.dist);
       if(debugMode) {
         this.move(mouseX, mouseY);
       } else {

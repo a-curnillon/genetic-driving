@@ -1,6 +1,8 @@
 function playGame() {
 
-  isPlaying = false;
+  if(!debugMode) {
+    isPlaying = false;
+  }
 
   if(!startTime) {
     startTime = Date.now();
@@ -20,24 +22,29 @@ function playGame() {
   }
 
   for (let car of cars) {
-    if(!car.crashed) {
-      car.show(0, 153, 153);
-      if(play) {
+    if (!debugMode) {
+      if(!car.crashed) {
         isPlaying = true;
+        car.show();
+        if(play) {
+          car.drive(playground, obstacles, walls);
+        }
+      }
+    } else {
+      car.show();
+      if(play) {
         car.drive(playground, obstacles, walls);
       }
     }
   }
 
-  if(!isPlaying) {
+  if(!isPlaying && !debugMode) {
     let tabCrashTime = [];
     while(tabCrashTime.length < cars.length) {
       for (let car of cars) {
         tabCrashTime.push(car.crashTime);
-        console.log(car.crashTime);
       }
     }
-    console.log(tabCrashTime.length);
     tabCrashTime.sort(function(a, b){return b-a});
     let stringTabTime = "";
     for (let i = 0; i < tabCrashTime.length; i++) {

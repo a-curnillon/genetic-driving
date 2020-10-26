@@ -15,7 +15,16 @@ function draw() {
 
   updateInformation();
 
-  playGame();
+  switch(gameState) {
+    case 0 :
+    case 1 :
+    playGame();
+    break;
+    case 2 :
+    break;
+  }
+
+  console.log((Date.now()%1000)/1000);
 
 
 }
