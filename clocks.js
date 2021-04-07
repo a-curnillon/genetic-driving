@@ -5,8 +5,9 @@ class Clock {
     this.y = ypos;
     this.w = width;
     this.h = height;
-    this.m = 0;
+    this.now = Date.now();
     this.s = 0;
+    this.m = 0;
   }
 
   show() {
@@ -16,15 +17,26 @@ class Clock {
       rect(this.x, this.y, this.w, this.h);
       fill(255);
       textAlign(CENTER, CENTER);
-      let date = this.m + "m " + this.s + "s"
+      let date = this.m + "m " + new Intl.NumberFormat({style: 'decimal'}).format(this.s) + "s";
       text(date, this.x, this.y, this.w, this.h);
     pop();
   }
 
   update() {
-    let d = new Date;
-    this.m = d.getMinutes();
-    this.s = d.getSeconds();
+    this.m = Math.trunc(((Date.now()-this.now)/1000/60)%60);
+    this.s = ((Date.now()-this.now)/1000)%60;
+  }
+
+  set(time) {
+    this.now = time;
+  }
+
+  reset() {
+    this.now = Date.now()
+  }
+
+  time() {
+    return this.s + 60*this.m;
   }
 
 }

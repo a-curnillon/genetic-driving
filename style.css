@@ -62,3 +62,7 @@ canvas {
 #G {
   color: #0f0;
 }
+
+.observablehq {
+  display: none;
+}

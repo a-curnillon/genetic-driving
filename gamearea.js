@@ -11,7 +11,6 @@ class GameArea {
     this.walls.push(new Boundary(this.x+this.w, this.y, this.x, this.y));
     this.walls.push(new Boundary(this.x, this.y, this.x, this.y+this.h));
     this.wallsNumber = this.walls.length;
-    this.watch = new Clock(this.x + this.w/2 - 120, this.y + 9*this.h/10, 240, 50);
   }
 
   show() {
@@ -35,8 +34,6 @@ class GameArea {
         this.walls[i].show(0);
       }
     }
-    this.watch.update();
-    this.watch.show();
   }
 
 }

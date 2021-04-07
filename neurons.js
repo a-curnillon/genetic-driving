@@ -1,10 +1,10 @@
 class Neuron {
 
-  constructor(numberOfImput) {
+  constructor(numberOfInput) {
 
     this.weight = []
 
-    for (let i = 0; i < numberOfImput; i++) {
+    for (let i = 0; i < numberOfInput; i++) {
       this.weight.push();
     }
 
@@ -14,6 +14,16 @@ class Neuron {
 
     this.weight[weightIndice] = weightNewValue;
 
+  }
+
+  getWeight(weightIndice) {
+
+    return this.weight[weightIndice];
+    
+  }
+
+  numberOfInput() {
+    return this.weight.length;
   }
 
   think(input) {
