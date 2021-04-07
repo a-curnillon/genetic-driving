@@ -1,6 +1,6 @@
 class Car {
 
-  constructor(xpos, ypos, width, height, colorR, colorG, colorB) {
+  constructor(xpos, ypos, width, height, colorR, colorG, colorB, ID) {
 
     this.x = xpos;
     this.y = ypos;
@@ -10,6 +10,8 @@ class Car {
     this.r = colorR;
     this.g = colorG;
     this.b = colorB;
+
+    this.id = ID;
 
     this.walls = [];
     this.walls.push(new Boundary(this.x, this.y+this.h, this.x+this.w, this.y+this.h));
@@ -114,9 +116,8 @@ class Car {
       this.crashInto(box);
     }
     if(this.crashed) {
-      this.crashTime = Date.now() - startTime;
+      this.crashTime = watch.time();
     }
-
   }
 
   cast(walls) {
@@ -152,7 +153,6 @@ class Car {
     this.collision(way, boxes);
     this.cast(walls);
     if (play) {
-      //console.log(this.dist);
       if(debugMode) {
         this.move(mouseX, mouseY);
       } else {
@@ -165,6 +165,16 @@ class Car {
       }
     }
 
+  }
+
+  setDriverParameters(parameters) {
+    for (let i = 0; i < this.driver.numberOfInput(); i++) {
+      this.driver.setWeight(i, parameters[i]);
+    }
+  }
+
+  setDriverParameter(indice, parameter) {
+      this.driver.setWeight(indice, parameter);
   }
 
 }

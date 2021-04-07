@@ -41,7 +41,7 @@
       </tr>
       <tr>
         <td class="centered paramMenu" colspan="4">
-          <input type="checkbox" checked="true" onclick="clickPlayPause()"></input>
+          <input id="buttonPlayPause" type="checkbox" checked="true" onclick="clickPlayPause()"></input>
         </td>
         <td class="centered paramMenu" colspan="8">
           <input type="checkbox" checked="true" onclick="clickNormalDebug()"></input>
@@ -62,10 +62,20 @@
         <td class="centered no-margin" colspan="12"><div id="sketch-holder"></div></td>
       </tr>
       <tr>
-        <td class="colored centered" colspan="12">Statistics</td>
+        <td class="colored centered" colspan="12">
+          Statistics <button id="buttonStats" onclick="clickStats()" type="button" value="up">&uarr;</button>
+        </td>
       </tr>
       <tr>
-        <td class="centered" colspan="12"><div></div></td>
+        <td class="centered elemStats" colspan="12"><div><canvas id="myChart" width="400" height="400"></canvas></div></td>
+      </tr>
+      <tr>
+        <td class="colored centered" colspan="12">
+          Genealogic <button id="buttonGenea" onclick="clickGenea()" type="button" value="up">&uarr;</button>
+        </td>
+      </tr>
+      <tr>
+        <td class="centered elemGenea" id="graph" colspan="12">
       </tr>
     </tbody>
 
@@ -92,18 +102,96 @@
       }
     }
 
+    function clickStats() {
+      let elm = document.getElementById('buttonStats');
+      if(elm.value == "up") {
+        elm.value = "down";
+        elm.innerHTML = "&darr;"
+        let statElement = document.getElementsByClassName('elemStats');
+        for (let i = 0; i < statElement.length; i++) {
+          statElement[i].style.display = "none";
+        }
+      } else {
+        elm.value = "up";
+        elm.innerHTML = "&uarr;"
+        let statElement = document.getElementsByClassName('elemStats');
+        for (let i = 0; i < statElement.length; i++) {
+          statElement[i].style.display = "table-cell";
+        }
+      }
+    }
+
+    function clickGenea() {
+      let elm = document.getElementById('buttonGenea');
+      if(elm.value == "up") {
+        elm.value = "down";
+        elm.innerHTML = "&darr;"
+        let statElement = document.getElementsByClassName('elemGenea');
+        for (let i = 0; i < statElement.length; i++) {
+          statElement[i].style.display = "none";
+        }
+      } else {
+        elm.value = "up";
+        elm.innerHTML = "&uarr;"
+        let statElement = document.getElementsByClassName('elemGenea');
+        for (let i = 0; i < statElement.length; i++) {
+          statElement[i].style.display = "table-cell";
+        }
+      }
+    }
+
     function clickPlayPause() {
-      play = !play;
+      if (gameState == 1) {
+        gameState = 4;
+      } else if (gameState == 4){
+        gameState = 1;
+      } else {
+        document.getElementById('buttonPlayPause').checked = "true";
+      }
     }
 
     function clickNormalDebug() {
       debugMode = !debugMode;
+      if(debugMode == false) {
+        for (let i = 0; i < cars.length; i++) {
+          car.move(width/6 - this.w/2, tempPosTab[i]);
+          console.log(tempCrashTab[i]);
+          car.crashed = tempCrashTab[i];
+        }
+        for(let obstacle of obstacles) {
+          let backdistance = obstacle.x + width/3;
+          while(obstacle.x < backdistance) {
+            obstacle.x++;
+          }
+        }
+        isPlaying = true;
+        startTime = Date.now()%120000;
+      } else {
+        tempPosTab = [];
+        tempCrashTab = [];
+        for (let car of cars) {
+          tempPosTab.push(car.y);
+          tempCrashTab.push(car.crashed);
+        }
+      }
     }
 
     function slideChange() {
       document.getElementById('sliderValue').innerHTML = document.getElementById('sliderMutation').value;
+      mutationRate = document.getElementById('sliderMutation').value;
+      console.log("Mutation Rate : " + mutationRate);
     }
 
+  </script>
+
+  <script type="module">
+
+    import define from "./geneaGraph.js";
+    import {Runtime, Library, Inspector} from "./runtime.js";
+  
+    const runtime = new Runtime();
+    const main = runtime.module(define, Inspector.into(document.body));
+  
   </script>
 
   <script src="p5.js"></script>
@@ -117,7 +205,19 @@
   <script src="variables.js"></script>
   <script src="cars.js"></script>
   <script src="ray.js"></script>
-  <script src="neuron.js"></script>
+  <script src="neurons.js"></script>
+  <script src="startgame.js"></script>
+  <script src="functions.js"></script>
+  <script src="clocks.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <script src="stats.js"></script>
+  <script src="start.js"></script>
+  <script src="pauseGame.js"></script>
+  <script src="dispScore.js"></script>
+  <script src="geneticAlgorithm.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.1/d3.min.js"></script>
+  <script src="geneaGraph.js"></script>
+  <script src="tree.js"></script>
 
 </body>
 
