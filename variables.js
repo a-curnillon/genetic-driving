@@ -13,7 +13,7 @@ let colorTabR = [255, 255, 102, 0, 0, 0, 51, 0, 255, 153];
 let colorTabG = [0, 0, 0, 0, 204, 153, 153, 255, 255, 153];
 let colorTabB = [0, 255, 204, 255, 255, 153, 51, 0, 102, 153];
 
-let carNumber = 10;
+let carNumber = 50;
 let carWidth = 40;
 let carHeight = 20;
 
@@ -22,10 +22,12 @@ let isPlaying;
 
 let playground;
 let watch;
+let scoreTab;
 
 let obstacles = [];
 
 let cars = [];
+let bestCars = [];
 
 let startTime;
 
@@ -36,6 +38,7 @@ let tabSorted = [];
 let gameNumber = 1;
 let xlabel = [];
 let meanTime = [];
+let bestScore = [];
 
 let updated = false;
 
@@ -54,5 +57,6 @@ let tabProbR1 = [2/7, 1/7, 1/14];
 let tabProbR20 = [0, 2/10, 1/10];
 let tabProbR21 = [2/6, 1/6, 1/12];
 let tabProbR22 = [4/13, 2/13, 1/13]; 
+let tabProbU = [3.96/8.36, 1.98/8.36, 1.32/8.36, 1.1/8.36, 1/8.36];
 
 let DATA = `source,target,value\n`;

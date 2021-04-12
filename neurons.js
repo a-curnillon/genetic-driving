@@ -22,7 +22,7 @@ class Neuron {
     
   }
 
-  numberOfInput() {
+  numberOfInputs() {
     return this.weight.length;
   }
 

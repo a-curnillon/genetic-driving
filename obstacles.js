@@ -28,7 +28,6 @@ class Obstacle {
     if(this.x+this.w < minWidth) {
       let r = random(1)
       if (r < 1/3) {
-        //this.y = (playground.y + playground.h)/6-30;
         this.y = playground.y + playground.h/6 - this.h/2;
       } else if (r < 2/3) {
         this.y = playground.y + playground.h/2 - this.h/2;

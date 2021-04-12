@@ -2,6 +2,8 @@ function setGame() {
 
   playground = new GameArea(0, 75, width, 300);
   watch = new Clock(playground.x + playground.w / 2 - 120, playground.y + playground.h + 12, 240, 50);
+  scoreTab = new ScoreBoard(0, 0, playground.w, playground.y);
+  numberTab = new AliveBoard((playground.x + playground.w / 2 - 120)/2 - 25, playground.y + playground.h + 12, 50, 50)
 
   for (let i = 0; i < obstacleNumber; i++) {
     let r = random(1);
@@ -16,14 +18,12 @@ function setGame() {
 
   for (let i = 0; i < carNumber; i++) {
     let temp = [];
-    cars.push(new Car(width / 6 - this.w / 2, height / 2, carWidth, carHeight, colorTabR[i], colorTabG[i], colorTabB[i], (gameNumber-1)*10 + i));
-    for (let j = 0; j < cars[i].driver.numberOfInput(); j++) {
+    cars.push(new Car(width / 6 - this.w / 2, height / 2, carWidth, carHeight, colorTabR[i%colorTabR.length], colorTabG[i%colorTabG.length], colorTabB[i%colorTabB.length], (gameNumber-1)*carNumber + i));
+    for (let j = 0; j < cars[i].driver.numberOfInputs(); j++) {
       temp.push(randomParameters(cars[i].driver.getWeight(j)));
     }
     TREE.push(temp);
   }
-  console.log(cars[1].driver.getWeight(2));
-  console.log(TREE[1][2].value);
 
   isStarted = true;
   isPlaying = true;
