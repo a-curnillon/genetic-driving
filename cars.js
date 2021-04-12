@@ -12,6 +12,8 @@ class Car {
     this.b = colorB;
 
     this.id = ID;
+    
+    this.probability = 0;
 
     this.walls = [];
     this.walls.push(new Boundary(this.x, this.y+this.h, this.x+this.w, this.y+this.h));
@@ -43,6 +45,9 @@ class Car {
       noStroke();
       fill(this.r, this.g, this.b);
       rect(this.x, this.y, this.w, this.h);
+      fill(255);
+      textAlign(CENTER, CENTER);
+      text(this.id, this.x, this.y, this.w, this.h);
     pop();
 
     for (let wall of this.walls) {

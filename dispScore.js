@@ -1,70 +1,52 @@
 function dispScore() {
-    
-    if (Date.now() - startTime < 5000) {
-        if (updated == false) {
-            let tabCrashTime = [];
-            let tempMeanTime = 0;
-            for (let car of cars) {
-                tabCrashTime.push(car.crashTime);
-                tempMeanTime += car.crashTime;
+
+    if (updated == false) {
+        let tabCrashTime = [];
+        let tempMeanTime = 0;
+        for (let car of cars) {
+            tabCrashTime.push(car.crashTime);
+            tempMeanTime += car.crashTime;
+        }
+        console.log(tempMeanTime);
+        tempMeanTime /= cars.length;
+        meanTime.push(tempMeanTime);
+        xlabel.push(gameNumber);
+        cars.sort((a,b) => b.crashTime - a.crashTime);
+        for (let car of cars) {
+            car.probability = car.crashTime/tempMeanTime;
+            console.log(car.probability);
+        }
+        tempScoreTab = [];
+        for (let i = 0; i < 10; i++) {
+            if (Math.trunc(cars[i].crashTime / 60) != 0) {
+                tempScoreTab.push(cars[i].id + ". " + Math.trunc(cars[i].crashTime / 60) + "m " + new Intl.NumberFormat({ style: 'decimal' }).format(cars[i].crashTime % 60) + "s");
+            } else {
+                tempScoreTab.push(cars[i].id + ". " + new Intl.NumberFormat({ style: 'decimal' }).format(cars[i].crashTime % 60) + "s");
             }
-            tempMeanTime /= cars.length;
-            meanTime.push(tempMeanTime);
-            xlabel.push(gameNumber);
-            chart.update();
-            updated = true;
-            tabCrashTime.sort(function (a, b) { return b - a });
-            stringTabTime = "";
-            for (let i = 0; i < tabCrashTime.length; i++) {
-                if (Math.trunc(tabCrashTime[i] / 60) != 0) {
-                    stringTabTime += i + ". " + Math.trunc(tabCrashTime[i] / 60) + "m " + new Intl.NumberFormat({ style: 'decimal' }).format(tabCrashTime[i] % 60) + "s" + "\n";
-                } else {
-                    stringTabTime += i + ". " + new Intl.NumberFormat({ style: 'decimal' }).format(tabCrashTime[i] % 60) + "s" + "\n";
-                }
+        }
+        if (bestCars.length == 0) {
+            for (let i = 0; i < 25; i++) {
+                bestCars.push(cars[i]);
             }
-            tabColors = [];
-            tabSorted = [];
-            while (tabColors.length != tabCrashTime.length) {
-                for (let i = 0; i < cars.length; i++) {
-                    let flag = false;
-                    for (let j = 0; j < tabSorted.length; j++) {
-                        if (tabSorted[j] == i) {
-                            flag = true;
-                            break;
-                        }
-                    }
-                    if (flag == true) {
-                        continue;
-                    } else {
-                        if (tabCrashTime[tabColors.length] == cars[i].crashTime) {
-                            tabColors.push([cars[i].r, cars[i].g, cars[i].b]);
-                            tabSorted.push(i);
-                            break;
-                        }
+        } else {
+            for (let i = 0; i < cars.length; i++) {
+                for (let j = 0; j < bestCars.length; j++) {
+                    if (cars[i].crashTime > bestCars[j].crashTime) {
+                        let t = bestCars.splice(j);
+                        bestCars = [...bestCars, cars[i], ...t];
+                        bestCars.pop();
+                        break;
                     }
                 }
             }
         }
-
-        push();
-        fill(0, 200);
-        rect(0, 0, width, height);
-        textSize(25);
-        fill(255);
-        textAlign(CENTER, CENTER);
-        text(stringTabTime, 0, 0, width, height);
-        ellipseMode(CENTER);
-        for (let i = 0; i < tabColors.length; i++) {
-            stroke(0.7*tabColors[i][0], 0.7*tabColors[i][1], 0.7*tabColors[i][2]);
-            strokeWeight(2);
-            fill(tabColors[i][0], tabColors[i][1], tabColors[i][2]);
-            ellipse(5 * width / 6, 68 + i*32, 12, 12);
-        }
-        pop();
-
-    } else {
-        gameState = 3;
-        startTime = Date.now();
-        updated = false;
+        bestScore.push(bestCars[0].crashTime);
+        chart.update();
+        scoreTab.update(tempScoreTab);
+        updated = true;
     }
+    gameState = 3;
+    startTime = Date.now();
+    updated = false;
+
 }

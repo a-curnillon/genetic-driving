@@ -1,5 +1,7 @@
 function playGame() {
 
+  let numberOfCarsShown = 0;
+
   if(!debugMode) {
     isPlaying = false;
   }
@@ -12,6 +14,8 @@ function playGame() {
 
   playground.show();
   watch.show();
+  scoreTab.show();
+  numberTab.show();
   walls = concat(walls, playground.walls);
 
   for(let obstacle of obstacles) {
@@ -22,11 +26,16 @@ function playGame() {
     walls = concat(walls, obstacle.walls);
   }
 
+  let alive = 0;
   for (let car of cars) {
     if (!debugMode) {
       if(!car.crashed) {
+        alive++;
         isPlaying = true;
-        car.show();
+        if (numberOfCarsShown < 10) {
+          car.show();
+          numberOfCarsShown++;
+        }
         if(play) {
           car.drive(playground, obstacles, walls);
         }
@@ -38,6 +47,7 @@ function playGame() {
       }
     }
   }
+  numberTab.update(alive);
 
   if(isPlaying) {
     watch.update();
