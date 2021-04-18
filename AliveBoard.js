@@ -15,7 +15,7 @@ class AliveBoard {
             rect(this.x, this.y, this.w, this.h);
             fill(255);
             textAlign(CENTER, CENTER);
-            text(this.aliveNumber + "/" + carNumber, this.x, this.y, this.w, this.h);
+            text(this.aliveNumber + "/" + cars.length, this.x, this.y, this.w, this.h);
         pop()
     }
 

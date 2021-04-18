@@ -3,7 +3,8 @@ function setGame() {
   playground = new GameArea(0, 75, width, 300);
   watch = new Clock(playground.x + playground.w / 2 - 120, playground.y + playground.h + 12, 240, 50);
   scoreTab = new ScoreBoard(0, 0, playground.w, playground.y);
-  numberTab = new AliveBoard((playground.x + playground.w / 2 - 120)/2 - 25, playground.y + playground.h + 12, 50, 50)
+  numberTab = new AliveBoard((playground.x + playground.w / 2 - 120)/2 - 25, playground.y + playground.h + 12, 50, 50);
+  pauseTab = new PauseBoard((playground.x + playground.w) - (playground.x + playground.w / 2 - 120)/2 - 25, playground.y + playground.h + 12, 50, 50);
 
   for (let i = 0; i < obstacleNumber; i++) {
     let r = random(1);
@@ -24,6 +25,8 @@ function setGame() {
     }
     TREE.push(temp);
   }
+
+  debugCar = new Car(width / 6 - this.w / 2, height / 2, carWidth, carHeight, 200, 200, 200, -1);
 
   isStarted = true;
   isPlaying = true;

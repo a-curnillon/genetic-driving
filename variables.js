@@ -27,6 +27,7 @@ let scoreTab;
 let obstacles = [];
 
 let cars = [];
+let debugCar;
 let bestCars = [];
 
 let startTime;
@@ -46,17 +47,6 @@ let tempPosTab = [];
 let tempCrashTab = [];
 
 let mutationRate = 0.2;
-let numberOfChildren = 2;
+let fitnessMode = 1;
+let parentsMode = 1;
 
-
-let firstGroupRate = 4/7;
-let secondGroupRate = 2/7;
-let thirdGroupRate = 1/7;
-
-let tabProbR1 = [2/7, 1/7, 1/14];
-let tabProbR20 = [0, 2/10, 1/10];
-let tabProbR21 = [2/6, 1/6, 1/12];
-let tabProbR22 = [4/13, 2/13, 1/13]; 
-let tabProbU = [3.96/8.36, 1.98/8.36, 1.32/8.36, 1.1/8.36, 1/8.36];
-
-let DATA = `source,target,value\n`;

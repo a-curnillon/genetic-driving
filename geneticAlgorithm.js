@@ -1,27 +1,33 @@
 function geneticAlgorithm() {
+  let carsParents;
+  if (parentsMode == 1) {
+    carsParents = cars;
+  } else {
+    carsParents = bestCars;
+  }
   newCars = [];
   for (let i = 0; i < carNumber; i++) {
     let parents = [];
     let r1 = random();
     let prob = 0;
-    for (let j = 0; j < cars.length; j++) {
-      prob += cars[j].probability;
+    for (let j = 0; j < carsParents.length; j++) {
+      prob += carsParents[j].probability;
       if (r1 < prob) {
-        parents.push(cars[j]);
+        parents.push(carsParents[j]);
         break;
       }
     }
     let r2 = random();
     prob = 0;
-    for (let j = 0; j < cars.length; j++) {
-      prob += cars[j].probability;
+    for (let j = 0; j < carsParents.length; j++) {
+      prob += carsParents[j].probability;
       if (r2 < prob) {
-        parents.push(cars[j]);
+        parents.push(carsParents[j]);
         break;
       }
     }
     for (p of parents) {
-      console.log(p.id);
+      console.log("parent 1 : " + p.id + " " + p.probability + " " + p.rank);
     }
     newCars.push(new Car(width / 6 - this.w / 2, height / 2, carWidth, carHeight, colorTabR[i%colorTabR.length], colorTabG[i%colorTabG.length], colorTabB[i%colorTabB.length], (gameNumber-1)*carNumber + i));
     let temp = [];

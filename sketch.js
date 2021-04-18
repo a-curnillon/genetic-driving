@@ -40,13 +40,4 @@ function draw() {
   }
 
   console.log("gameState : " + gameState);
-  /*
-  push();
-  stroke(255, 0, 0);
-  fill(255, 0, 0);
-  line(0, mouseY, width, mouseY);
-  line(mouseX, 0, mouseX, height)
-  pop();
-  console.log(mouseX);
-  */
 }

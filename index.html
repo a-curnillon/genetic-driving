@@ -16,7 +16,8 @@
     <thead>
       <tr>
         <th colspan="12">
-          <h1><span id="A">•</span> Project <span id="T">•</span> Genetic <span id="C">•</span> Driving <span id="G">•</span></h1>
+          <h1><span id="A">•</span> Project <span id="T">•</span> Genetic <span id="C">•</span> Driving <span
+              id="G">•</span></h1>
         </th>
       </tr>
     </thead>
@@ -24,11 +25,15 @@
     <tbody>
       <tr>
         <td class="colored" colspan="4">Author :</td>
-        <td class="centered" colspan="8"><div id="author"></div></td>
+        <td class="centered" colspan="8">
+          <div id="author"></div>
+        </td>
       </tr>
       <tr>
         <td class="colored" colspan="4">Date :</td>
-        <td class="centered" colspan="8"><div id="date"></div></td>
+        <td class="centered" colspan="8">
+          <div id="date"></div>
+        </td>
       </tr>
       <tr>
         <td class="colored centered" colspan="12">
@@ -47,19 +52,52 @@
           <input type="checkbox" checked="true" onclick="clickNormalDebug()"></input>
       </tr>
       <tr>
-        <td class="centered mid-colored paramMenu" colspan="12">Mutation rate</td>
+        <td class="centered mid-colored paramMenu" colspan="12">Mutation Rate</td>
       </tr>
       <tr>
         <td class="centered paramMenu" colspan="12">
-          <input type="range" min="0" step="0.01" max="1" value="0.2" class="slider" id="sliderMutation" onchange="slideChange()"><br>
+          <input type="range" min="0" step="0.01" max="1" value="0.2" class="slider" id="sliderMutation"
+            onchange="slideChange()"><br>
           <span id="sliderValue">0.2</span>
         </td>
       </tr>
       <tr>
-        <td class="colored centered" colspan="12">Simulation</td>
+      <tr>
+        <td class="centered mid-colored paramMenu" colspan="12">Number per Generation</td>
       </tr>
       <tr>
-        <td class="centered no-margin" colspan="12"><div id="sketch-holder"></div></td>
+        <td class="centered paramMenu" colspan="12">
+          <input type="number" id="carNumber" min="1" value="50" onchange="carNumberChange()">
+        </td>
+      </tr>
+      <tr>
+        <td class="centered mid-colored paramMenu" colspan="12">Fitness Mode</td>
+      </tr>
+      <tr>
+        <td class="centered paramMenu" colspan="12">
+          <select list="fitnessMode" onchange="fitnessModeChange()" id="fitnessMode">
+            <option>normalized fitness</option>
+            <option>rank</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td class="centered mid-colored paramMenu" colspan="12">Parents Selection</td>
+      </tr>
+      <tr>
+        <td class="centered paramMenu" colspan="12">
+          <select list="parentsSelection" onchange="parentsModeChange()" id="parentsMode">
+            <option>best of the previous generation</option>
+            <option>best of all time</option>
+          </select>
+        </td>
+      </tr>
+      <td class="colored centered" colspan="12">Simulation</td>
+      </tr>
+      <tr>
+        <td class="centered no-margin" colspan="12">
+          <div id="sketch-holder"></div>
+        </td>
       </tr>
       <tr>
         <td class="colored centered" colspan="12">
@@ -67,7 +105,9 @@
         </td>
       </tr>
       <tr>
-        <td class="centered elemStats" colspan="12"><div><canvas id="myChart" width="400" height="400"></canvas></div></td>
+        <td class="centered elemStats" colspan="12">
+          <div><canvas id="myChart" width="400" height="400"></canvas></div>
+        </td>
       </tr>
     </tbody>
 
@@ -77,7 +117,7 @@
 
     function clickParam() {
       let elm = document.getElementById('buttonParam');
-      if(elm.value == "up") {
+      if (elm.value == "up") {
         elm.value = "down";
         elm.innerHTML = "&darr;"
         let menuElement = document.getElementsByClassName('paramMenu');
@@ -96,7 +136,7 @@
 
     function clickStats() {
       let elm = document.getElementById('buttonStats');
-      if(elm.value == "up") {
+      if (elm.value == "up") {
         elm.value = "down";
         elm.innerHTML = "&darr;"
         let statElement = document.getElementsByClassName('elemStats');
@@ -107,25 +147,6 @@
         elm.value = "up";
         elm.innerHTML = "&uarr;"
         let statElement = document.getElementsByClassName('elemStats');
-        for (let i = 0; i < statElement.length; i++) {
-          statElement[i].style.display = "table-cell";
-        }
-      }
-    }
-
-    function clickGenea() {
-      let elm = document.getElementById('buttonGenea');
-      if(elm.value == "up") {
-        elm.value = "down";
-        elm.innerHTML = "&darr;"
-        let statElement = document.getElementsByClassName('elemGenea');
-        for (let i = 0; i < statElement.length; i++) {
-          statElement[i].style.display = "none";
-        }
-      } else {
-        elm.value = "up";
-        elm.innerHTML = "&uarr;"
-        let statElement = document.getElementsByClassName('elemGenea');
         for (let i = 0; i < statElement.length; i++) {
           statElement[i].style.display = "table-cell";
         }
@@ -134,9 +155,13 @@
 
     function clickPlayPause() {
       if (gameState == 1) {
-        gameState = 4;
-      } else if (gameState == 4){
-        gameState = 1;
+        pauseTab.toggle();
+        if (pauseTab.isPlaying()) {
+          watch.setDelay(Date.now()-watch.getDelay());
+        } else {
+          watch.setDelay(Date.now());
+        }
+        console.log("delay : " + watch.delay);
       } else {
         document.getElementById('buttonPlayPause').checked = "true";
       }
@@ -144,20 +169,20 @@
 
     function clickNormalDebug() {
       debugMode = !debugMode;
-      if(debugMode == false) {
+      if (debugMode == false) {
         for (let i = 0; i < cars.length; i++) {
-          car.move(width/6 - this.w/2, tempPosTab[i]);
+          car.move(width / 6 - this.w / 2, tempPosTab[i]);
           console.log(tempCrashTab[i]);
           car.crashed = tempCrashTab[i];
         }
-        for(let obstacle of obstacles) {
-          let backdistance = obstacle.x + width/3;
-          while(obstacle.x < backdistance) {
+        for (let obstacle of obstacles) {
+          let backdistance = obstacle.x + width / 3;
+          while (obstacle.x < backdistance) {
             obstacle.x++;
           }
         }
         isPlaying = true;
-        startTime = Date.now()%120000;
+        startTime = Date.now() % 120000;
       } else {
         tempPosTab = [];
         tempCrashTab = [];
@@ -174,19 +199,48 @@
       console.log("Mutation Rate : " + mutationRate);
     }
 
+    function fitnessModeChange() {
+      switch (document.getElementById('fitnessMode').value) {
+        case "normalized fitness":
+          fitnessMode = 1;
+          break;
+        case "rank":
+          fitnessMode = 2;
+          break;
+      }
+      console.log(fitnessMode);
+    }
+
+    function parentsModeChange() {
+      switch (document.getElementById('parentsMode').value) {
+        case "best of the previous generation":
+          parentsMode = 1;
+          break;
+        case "best of all time":
+          parentsMode = 2;
+          break;
+      }
+      console.log(parentsMode);
+    }
+
+    function carNumberChange() {
+      carNumber = document.getElementById('carNumber').value;
+      console.log("carNumber : " + carNumber);
+    }
+
   </script>
 
   <script type="module">
 
     import define from "./geneaGraph.js";
-    import {Runtime, Library, Inspector} from "./runtime.js";
-  
+    import { Runtime, Library, Inspector } from "./runtime.js";
+
     const runtime = new Runtime();
     const main = runtime.module(define, Inspector.into(document.body));
-  
+
   </script>
 
-<script src="https://cdn.jsdelivr.net/npm/p5@1.3.1/lib/p5.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.3.1/lib/p5.js"></script>
   <script src="sketch.js"></script>
   <script src="htmlRequest.js"></script>
   <script src="setgame.js"></script>

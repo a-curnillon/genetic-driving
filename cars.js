@@ -12,6 +12,7 @@ class Car {
     this.b = colorB;
 
     this.id = ID;
+    this.rank = 0;
     
     this.probability = 0;
 

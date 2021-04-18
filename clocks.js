@@ -6,6 +6,7 @@ class Clock {
     this.w = width;
     this.h = height;
     this.now = Date.now();
+    this.delay = 0;
     this.s = 0;
     this.m = 0;
   }
@@ -23,16 +24,21 @@ class Clock {
   }
 
   update() {
-    this.m = Math.trunc(((Date.now()-this.now)/1000/60)%60);
-    this.s = ((Date.now()-this.now)/1000)%60;
+    this.m = Math.trunc(((Date.now() - this.now - this.delay)/1000/60)%60);
+    this.s = ((Date.now() - this.now - this.delay)/1000)%60;
   }
 
-  set(time) {
-    this.now = time;
+  setDelay(time) {
+    this.delay = time;
+  }
+
+  getDelay() {
+    return this.delay;
   }
 
   reset() {
-    this.now = Date.now()
+    this.now = Date.now();
+    this.delay = 0;
   }
 
   time() {
