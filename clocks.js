@@ -24,12 +24,16 @@ class Clock {
   }
 
   update() {
-    this.m = Math.trunc(((Date.now() - this.now - this.delay)/1000/60)%60);
-    this.s = ((Date.now() - this.now - this.delay)/1000)%60;
+    this.m = Math.trunc(((Date.now() - this.now)/1000/60)%60);
+    this.s = ((Date.now() - this.now)/1000)%60;
   }
 
   setDelay(time) {
     this.delay = time;
+  }
+
+  addDelay() {
+    this.now += this.delay;
   }
 
   getDelay() {

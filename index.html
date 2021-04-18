@@ -158,10 +158,10 @@
         pauseTab.toggle();
         if (pauseTab.isPlaying()) {
           watch.setDelay(Date.now()-watch.getDelay());
+          watch.addDelay();
         } else {
           watch.setDelay(Date.now());
         }
-        console.log("delay : " + watch.delay);
       } else {
         document.getElementById('buttonPlayPause').checked = "true";
       }
