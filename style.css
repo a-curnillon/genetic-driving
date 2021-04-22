@@ -1,6 +1,9 @@
 body {
-  padding: 0px;
-  margin: 0px;
+  margin: auto;
+}
+
+table {
+  width: 100%;
 }
 
 h1 {
@@ -63,6 +66,69 @@ canvas {
   color: #0f0;
 }
 
-.observablehq {
+.paramMenu, .paramMenuRow {
   display: none;
 }
+
+.elementExplanation, .elementExplanationRow {
+  display: none;
+}
+
+.explanationContent {
+  text-align: justify;
+  width: 650px;
+  height: 650px;
+  margin: 2%;
+  padding: 2%;
+  overflow: scroll;
+}
+
+img {
+  margin: 10%;
+  width: 80%;
+  max-width: 450px;
+  object-fit: contain;
+}
+
+.chartjs-size-monitor {
+  width: 450px;
+  height: 450px;
+}
+
+.row {
+  margin-left:-5px;
+  margin-right:-5px;
+}
+  
+.column {
+  float: left;
+  width: 49%;
+  padding: 5px;
+  margin: 0 auto;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.invisible {
+  border: 0px;
+  margin: 0px auto;
+  padding: 0px auto;
+  max-width: 450px;
+}
+
+@media screen and (max-width: 998px) {
+  .column {
+    float: center;
+    width: 100%;
+  }
+  .explanationContent {
+    width: 450px;
+    height: 450px;
+  }
+}
+
+

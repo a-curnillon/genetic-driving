@@ -39,5 +39,14 @@ function draw() {
       break;
   }
 
-  console.log("gameState : " + gameState);
+  if(!focused) {
+    if(pauseTab.isPlaying()) {
+      clickPlayPause();
+    }
+  } else {
+    if(!pauseTab.isPlaying()) {
+      clickPlayPause();
+    }
+  }
+  
 }

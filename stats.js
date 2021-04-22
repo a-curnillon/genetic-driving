@@ -20,17 +20,19 @@ const labels = xlabel;
     type: 'line',
     data: data,
     options: {
-      responsive: true,
+      responsive: false,
       plugins: {
         legend: {
           position: 'top',
         },
         title: {
           display: true,
-          text: 'Chart.js Line Chart'
+          text: 'Statistics'
         }
       }
     },
   };
 let ctx = document.getElementById('myChart').getContext('2d');
 let chart = new Chart(ctx, config);
+chart.canvas.parentNode.style.height = '450px';
+chart.canvas.parentNode.style.width = '450px';

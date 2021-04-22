@@ -26,10 +26,10 @@ function geneticAlgorithm() {
         break;
       }
     }
-    for (p of parents) {
+    /*for (p of parents) {
       console.log("parent 1 : " + p.id + " " + p.probability + " " + p.rank);
-    }
-    newCars.push(new Car(width / 6 - this.w / 2, height / 2, carWidth, carHeight, colorTabR[i%colorTabR.length], colorTabG[i%colorTabG.length], colorTabB[i%colorTabB.length], (gameNumber-1)*carNumber + i));
+    }*/
+    newCars.push(new Car(width / 6 - this.w / 2, height / 2, carWidth, carHeight, colorTabR[i%colorTabR.length], colorTabG[i%colorTabG.length], colorTabB[i%colorTabB.length], (gameNumber)*carNumber + i));
     let temp = [];
     for (let j = 0; j < newCars[i].driver.numberOfInputs(); j++) {
       let r = random();
