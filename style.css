@@ -63,6 +63,35 @@ canvas {
   color: #0f0;
 }
 
-.observablehq {
+.row {
+  margin-left:-5px;
+  margin-right:-15px;
+}
+  
+.column {
+  float: left;
+  width: 47%;
+  padding: 5px;
+  margin: 0 auto;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+img {
+  margin: 10%;
+  width: 80%;
+  max-width: 450px;
+  object-fit: contain;
+}
+
+.elementExplanation, .elementExplanationRow {
+  display: none;
+}
+
+.paramMenu, .paramMenuRow {
   display: none;
 }
